@@ -55,7 +55,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-lightestSlate">Contact Information</h3>
             <p className="text-slate mb-2">Email: adebayoajani23@gmail.com</p>
-            <p className="text-slate mb-2">Phone: +1 (123) 456-7890</p>
+            <p className="text-slate mb-2">Phone: +2347067412852</p>
             <p className="text-slate mb-4">Office Hours: 9AM - 6PM, Monday - Friday</p>
             <div className="text-slate">
               <p className="mb-1"><strong>Social Media:</strong></p>
