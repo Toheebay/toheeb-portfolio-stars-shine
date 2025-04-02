@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				navy: "#0A192F",
+				lightNavy: "#112240",
+				lightestNavy: "#233554",
+				slate: "#8892B0",
+				lightSlate: "#A8B2D1",
+				lightestSlate: "#CCD6F6",
+				white: "#E6F1FF",
+				green: "#64FFDA",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +93,33 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'star-twinkle': {
+					'0%, 100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					},
+					'50%': {
+						opacity: '0.4',
+						transform: 'scale(1.2)'
+					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'star-twinkle': 'star-twinkle 2s ease-in-out infinite',
+				'star-twinkle-delay': 'star-twinkle 2s ease-in-out 0.5s infinite',
+				'star-twinkle-delay-2': 'star-twinkle 2s ease-in-out 1s infinite',
+				'float': 'float 4s ease-in-out infinite'
 			}
 		}
 	},
