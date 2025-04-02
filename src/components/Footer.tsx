@@ -10,19 +10,19 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-lightestSlate">Adebayo Toheeb</h3>
             <p className="text-slate mb-4">
-              Professional software developer specializing in complete software solutions and digital marketing services.
+              Full Stack Developer specializing in complete software solutions, data analysis, and digital marketing services.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-slate hover:text-green transition-colors">
+              <a href="https://www.github.com/Toheebay" target="_blank" rel="noopener noreferrer" className="text-slate hover:text-green transition-colors">
                 <Github className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate hover:text-green transition-colors">
+              <a href="https://www.facebook.com/kolawole.adebayo.1069" target="_blank" rel="noopener noreferrer" className="text-slate hover:text-green transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate hover:text-green transition-colors">
+              <a href="https://x.com/Adebayo19192400" target="_blank" rel="noopener noreferrer" className="text-slate hover:text-green transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="mailto:contact@adebayotoheeb.com" className="text-slate hover:text-green transition-colors">
+              <a href="mailto:adebayoajani23@gmail.com" className="text-slate hover:text-green transition-colors">
                 <Mail className="h-5 w-5" />
               </a>
             </div>
@@ -54,9 +54,15 @@ const Footer = () => {
           
           <div>
             <h3 className="text-xl font-bold mb-4 text-lightestSlate">Contact Information</h3>
-            <p className="text-slate mb-2">Email: contact@adebayotoheeb.com</p>
+            <p className="text-slate mb-2">Email: adebayoajani23@gmail.com</p>
             <p className="text-slate mb-2">Phone: +1 (123) 456-7890</p>
-            <p className="text-slate">Office Hours: 9AM - 6PM, Monday - Friday</p>
+            <p className="text-slate mb-4">Office Hours: 9AM - 6PM, Monday - Friday</p>
+            <div className="text-slate">
+              <p className="mb-1"><strong>Social Media:</strong></p>
+              <p className="mb-1">GitHub: <a href="https://www.github.com/Toheebay" target="_blank" rel="noopener noreferrer" className="text-green hover:underline">Toheebay</a></p>
+              <p className="mb-1">Twitter: <a href="https://x.com/Adebayo19192400" target="_blank" rel="noopener noreferrer" className="text-green hover:underline">@Adebayo19192400</a></p>
+              <p>Facebook: <a href="https://www.facebook.com/kolawole.adebayo.1069" target="_blank" rel="noopener noreferrer" className="text-green hover:underline">Kolawole Adebayo</a></p>
+            </div>
           </div>
         </div>
         

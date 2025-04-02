@@ -10,7 +10,7 @@ const About = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
           <p className="text-lg text-slate max-w-2xl mx-auto">
-            Software developer with a passion for creating efficient, user-friendly solutions
+            Full Stack Developer with expertise in web development, data analysis, and digital marketing
           </p>
         </div>
 
@@ -18,7 +18,7 @@ const About = () => {
           <div className="order-2 md:order-1">
             <h3 className="text-2xl font-bold mb-4 text-lightestSlate">Adebayo Toheeb</h3>
             <p className="mb-4">
-              I'm a versatile software developer specializing in creating comprehensive software 
+              I'm a versatile Full Stack Developer specializing in creating comprehensive software 
               solutions for businesses across various industries. With expertise in both software 
               development and digital marketing, I provide end-to-end services that help businesses 
               thrive in the digital landscape.
@@ -57,10 +57,37 @@ const About = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="skill-item">
-                      <h4 className="font-medium text-lightestSlate mb-2">Software Development</h4>
+                      <h4 className="font-medium text-lightestSlate mb-2">Full Stack Development</h4>
                       <div className="flex items-center mb-1">
                         <div className="w-full bg-navy rounded-full h-2">
                           <div className="bg-green h-2 rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="skill-item">
+                      <h4 className="font-medium text-lightestSlate mb-2">Python/Django</h4>
+                      <div className="flex items-center mb-1">
+                        <div className="w-full bg-navy rounded-full h-2">
+                          <div className="bg-green h-2 rounded-full" style={{ width: '90%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="skill-item">
+                      <h4 className="font-medium text-lightestSlate mb-2">JavaScript/HTML/CSS</h4>
+                      <div className="flex items-center mb-1">
+                        <div className="w-full bg-navy rounded-full h-2">
+                          <div className="bg-green h-2 rounded-full" style={{ width: '95%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="skill-item">
+                      <h4 className="font-medium text-lightestSlate mb-2">Data Analysis</h4>
+                      <div className="flex items-center mb-1">
+                        <div className="w-full bg-navy rounded-full h-2">
+                          <div className="bg-green h-2 rounded-full" style={{ width: '85%' }}></div>
                         </div>
                       </div>
                     </div>
@@ -75,37 +102,10 @@ const About = () => {
                     </div>
 
                     <div className="skill-item">
-                      <h4 className="font-medium text-lightestSlate mb-2">eCommerce</h4>
-                      <div className="flex items-center mb-1">
-                        <div className="w-full bg-navy rounded-full h-2">
-                          <div className="bg-green h-2 rounded-full" style={{ width: '85%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="skill-item">
                       <h4 className="font-medium text-lightestSlate mb-2">Digital Marketing</h4>
                       <div className="flex items-center mb-1">
                         <div className="w-full bg-navy rounded-full h-2">
                           <div className="bg-green h-2 rounded-full" style={{ width: '88%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="skill-item">
-                      <h4 className="font-medium text-lightestSlate mb-2">UI/UX Design</h4>
-                      <div className="flex items-center mb-1">
-                        <div className="w-full bg-navy rounded-full h-2">
-                          <div className="bg-green h-2 rounded-full" style={{ width: '80%' }}></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="skill-item">
-                      <h4 className="font-medium text-lightestSlate mb-2">System Integration</h4>
-                      <div className="flex items-center mb-1">
-                        <div className="w-full bg-navy rounded-full h-2">
-                          <div className="bg-green h-2 rounded-full" style={{ width: '92%' }}></div>
                         </div>
                       </div>
                     </div>
