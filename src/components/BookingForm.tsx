@@ -226,9 +226,9 @@ const BookingForm = () => {
               {formData.paymentMethod === 'bankTransfer' && (
                 <div className="p-4 bg-lightestNavy rounded-md">
                   <h4 className="font-medium mb-2">Bank Transfer Information</h4>
-                  <p className="text-sm text-slate mb-1">Bank: First Bank of Nigeria</p>
+                  <p className="text-sm text-slate mb-1">Bank: Zenith Bank (Nigeria)</p>
                   <p className="text-sm text-slate mb-1">Account Name: Adebayo Toheeb</p>
-                  <p className="text-sm text-slate mb-1">Account Number: 3104295873</p>
+                  <p className="text-sm text-slate mb-1">Account Number: 2428731638</p>
                   <p className="text-sm text-slate">Please include your name as reference</p>
                 </div>
               )}
