@@ -1,13 +1,12 @@
-
 import { useState } from 'react';
 import { ShoppingCart, PlusCircle, MinusCircle, ShoppingBag, Tv, Laptop, Smartphone, Bike, Zap } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 import Star from './Star';
 
-// Product type definition
 interface Product {
   id: number;
   name: string;
@@ -17,17 +16,16 @@ interface Product {
   description: string;
 }
 
-// Cart item type definition
 interface CartItem extends Product {
   quantity: number;
 }
 
 const Store = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
 
-  // Sample products data
   const products: Product[] = [
     {
       id: 1,
@@ -95,7 +93,6 @@ const Store = () => {
     }
   ];
 
-  // Add to cart function
   const addToCart = (product: Product) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
@@ -115,7 +112,6 @@ const Store = () => {
     });
   };
 
-  // Remove from cart function
   const removeFromCart = (productId: number) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === productId);
@@ -130,10 +126,8 @@ const Store = () => {
     });
   };
 
-  // Calculate total price
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-  // Get product icon based on category
   const getProductIcon = (category: string) => {
     switch(category.toLowerCase()) {
       case 'television':
@@ -141,7 +135,7 @@ const Store = () => {
       case 'computers':
         return <Laptop className="h-12 w-12 text-green" />;
       case 'sports':
-        return <Bike className="h-12 w-12 text-green" />; // Changed from Bicycle to Bike
+        return <Bike className="h-12 w-12 text-green" />;
       case 'electronics':
         return <Smartphone className="h-12 w-12 text-green" />;
       case 'appliances':
@@ -151,23 +145,13 @@ const Store = () => {
     }
   };
 
-  // Handle checkout
   const handleCheckout = () => {
     toast({
       title: "Proceeding to checkout",
       description: "Redirecting to payment page...",
     });
     
-    // Here we would normally redirect to a payment processor
-    // For demo purposes we'll just clear the cart after a delay
-    setTimeout(() => {
-      setCartItems([]);
-      setShowCart(false);
-      toast({
-        title: "Purchase successful!",
-        description: "Thank you for your purchase.",
-      });
-    }, 2000);
+    navigate('/payment');
   };
 
   return (
@@ -180,7 +164,6 @@ const Store = () => {
           </p>
         </div>
 
-        {/* Cart button */}
         <div className="fixed top-24 right-6 z-50">
           <Button 
             onClick={() => setShowCart(!showCart)} 
@@ -194,7 +177,6 @@ const Store = () => {
           </Button>
         </div>
 
-        {/* Cart panel */}
         {showCart && (
           <div className="fixed top-40 right-6 w-80 bg-lightNavy rounded-lg shadow-lg z-50 border border-lightestNavy p-4">
             <div className="flex justify-between items-center mb-4">
@@ -234,7 +216,7 @@ const Store = () => {
                 </div>
 
                 <Button 
-                  className="w-full" 
+                  className="w-full btn-red" 
                   onClick={handleCheckout}
                 >
                   Proceed to Checkout
@@ -244,7 +226,6 @@ const Store = () => {
           </div>
         )}
 
-        {/* Products grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map(product => (
             <Card key={product.id} className="dashboard-card relative group">
@@ -280,7 +261,6 @@ const Store = () => {
         </div>
       </div>
 
-      {/* Background stars */}
       <Star size={4} top="10%" left="5%" />
       <Star size={3} top="15%" right="8%" />
       <Star size={5} bottom="15%" left="12%" />
