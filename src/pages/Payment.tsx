@@ -1,10 +1,18 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import Star from "@/components/Star";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Payment = () => {
   const { toast } = useToast();
+  const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
 
   useEffect(() => {
     toast({
@@ -14,7 +22,18 @@ const Payment = () => {
   }, [toast]);
 
   const handlePayment = () => {
-    window.location.href = 'https://flutterwave.com/pay/c15bnectv5sa';
+    // Different payment links for different currencies
+    const paymentLinks = {
+      NGN: 'https://flutterwave.com/pay/c15bnectv5sa',
+      USD: 'https://flutterwave.com/pay/c15bnectv5sa' // Use the same link or replace with USD-specific link
+    };
+    
+    window.location.href = paymentLinks[currency];
+  };
+
+  // Calculate prices based on currency
+  const getPrice = () => {
+    return currency === "NGN" ? "₦35,000" : "$50";
   };
 
   return (
@@ -22,9 +41,32 @@ const Payment = () => {
       {/* Payment container */}
       <div className="bg-lightNavy border border-lightestNavy rounded-lg p-8 max-w-lg w-full shadow-lg relative">
         <h1 className="text-3xl font-bold text-center mb-6">Welcome to Business Automation</h1>
-        <p className="text-lightSlate text-center mb-8">
-          To proceed with payment, click the button below:
-        </p>
+        
+        <div className="mb-8">
+          <p className="text-lightSlate text-center mb-4">
+            Select your preferred currency:
+          </p>
+          <div className="flex justify-center mb-6">
+            <Select
+              value={currency}
+              onValueChange={(value) => setCurrency(value as "NGN" | "USD")}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select Currency" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="NGN">Nigerian Naira (₦)</SelectItem>
+                <SelectItem value="USD">US Dollar ($)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="text-center mb-6">
+            <p className="text-lightSlate mb-2">Total Amount:</p>
+            <p className="text-2xl font-bold text-green">{getPrice()}</p>
+          </div>
+        </div>
+        
         <div className="flex justify-center">
           <button 
             onClick={handlePayment}
