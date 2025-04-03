@@ -10,6 +10,7 @@ interface StarProps {
   bottom?: string;
   delay?: number;
   className?: string;
+  color?: 'green' | 'red';
 }
 
 const Star: React.FC<StarProps> = ({ 
@@ -19,7 +20,8 @@ const Star: React.FC<StarProps> = ({
   right, 
   bottom, 
   delay = 0,
-  className
+  className,
+  color = 'green'
 }) => {
   const animationClass = delay === 0 
     ? 'animate-star-twinkle' 
@@ -30,7 +32,7 @@ const Star: React.FC<StarProps> = ({
   return (
     <div 
       className={cn(
-        'star', 
+        color === 'green' ? 'star' : 'red-star', 
         animationClass,
         className
       )}

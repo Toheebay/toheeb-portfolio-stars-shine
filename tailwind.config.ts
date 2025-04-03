@@ -71,6 +71,7 @@ export default {
 				lightestSlate: "#CCD6F6",
 				white: "#E6F1FF",
 				green: "#64FFDA",
+				red: "#ea384c", // Adding red color
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

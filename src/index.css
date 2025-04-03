@@ -57,8 +57,29 @@
   box-shadow: 0 0 10px 2px theme('colors.green');
 }
 
+.red-star {
+  @apply absolute bg-red rounded-full;
+  box-shadow: 0 0 10px 2px theme('colors.red');
+}
+
 .service-card:hover .service-icon {
   @apply text-green;
+}
+
+.red-accent {
+  @apply text-red;
+}
+
+.btn-red {
+  @apply bg-red text-white hover:bg-red/90 transition-colors;
+}
+
+.border-red {
+  @apply border-red;
+}
+
+.red-glow {
+  box-shadow: 0 0 15px -2px theme('colors.red');
 }
 
 .section {
@@ -71,6 +92,10 @@
 
 .dashboard-card {
   @apply bg-lightNavy rounded-lg p-6 shadow-lg border border-lightestNavy transition-all duration-300 hover:shadow-xl hover:shadow-green/10;
+}
+
+.red-card {
+  @apply bg-lightNavy rounded-lg p-6 shadow-lg border border-red/30 transition-all duration-300 hover:shadow-xl hover:shadow-red/20;
 }
 
 .service-dropdown-item {
