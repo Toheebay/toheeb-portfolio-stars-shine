@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ShoppingCart, PlusCircle, MinusCircle, ShoppingBag, Tv, Laptop, Smartphone, Bicycle, Zap } from 'lucide-react';
+import { ShoppingCart, PlusCircle, MinusCircle, ShoppingBag, Tv, Laptop, Smartphone, Bike, Zap } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -141,7 +141,7 @@ const Store = () => {
       case 'computers':
         return <Laptop className="h-12 w-12 text-green" />;
       case 'sports':
-        return <Bicycle className="h-12 w-12 text-green" />;
+        return <Bike className="h-12 w-12 text-green" />; // Changed from Bicycle to Bike
       case 'electronics':
         return <Smartphone className="h-12 w-12 text-green" />;
       case 'appliances':
