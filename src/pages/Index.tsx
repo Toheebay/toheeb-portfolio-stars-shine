@@ -6,6 +6,7 @@ import EcommerceDashboard from "@/components/EcommerceDashboard";
 import AdsDashboard from "@/components/AdsDashboard";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
+import Store from "@/components/Store";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
       <Services />
       <EcommerceDashboard />
       <AdsDashboard />
+      <Store />
       <About />
       <BookingForm />
       <Footer />

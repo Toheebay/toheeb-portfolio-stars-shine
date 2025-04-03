@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Calendar, Clock, MessageSquare } from 'lucide-react';
+import { Calendar, Clock, MessageSquare, CreditCard } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Star from './Star';
 
@@ -16,6 +16,7 @@ const BookingForm = () => {
     date: '',
     time: '',
     message: '',
+    paymentMethod: 'creditCard',
   });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -42,6 +43,7 @@ const BookingForm = () => {
       date: '',
       time: '',
       message: '',
+      paymentMethod: 'creditCard',
     });
   };
 
@@ -174,8 +176,65 @@ const BookingForm = () => {
                 ></textarea>
               </div>
               
+              {/* Payment method selection */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium flex items-center">
+                  <CreditCard className="h-4 w-4 mr-1" /> Payment Method
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="flex items-center space-x-2 p-3 border border-lightestNavy rounded-md bg-lightestNavy/50">
+                    <input
+                      type="radio"
+                      id="creditCard"
+                      name="paymentMethod"
+                      value="creditCard"
+                      checked={formData.paymentMethod === 'creditCard'}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-green"
+                    />
+                    <label htmlFor="creditCard" className="cursor-pointer">Credit Card</label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 p-3 border border-lightestNavy rounded-md bg-lightestNavy/50">
+                    <input
+                      type="radio"
+                      id="bankTransfer"
+                      name="paymentMethod"
+                      value="bankTransfer"
+                      checked={formData.paymentMethod === 'bankTransfer'}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-green"
+                    />
+                    <label htmlFor="bankTransfer" className="cursor-pointer">Bank Transfer</label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 p-3 border border-lightestNavy rounded-md bg-lightestNavy/50">
+                    <input
+                      type="radio"
+                      id="paypal"
+                      name="paymentMethod"
+                      value="paypal"
+                      checked={formData.paymentMethod === 'paypal'}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-green"
+                    />
+                    <label htmlFor="paypal" className="cursor-pointer">PayPal</label>
+                  </div>
+                </div>
+              </div>
+              
+              {formData.paymentMethod === 'bankTransfer' && (
+                <div className="p-4 bg-lightestNavy rounded-md">
+                  <h4 className="font-medium mb-2">Bank Transfer Information</h4>
+                  <p className="text-sm text-slate mb-1">Bank: First Bank of Nigeria</p>
+                  <p className="text-sm text-slate mb-1">Account Name: Adebayo Toheeb</p>
+                  <p className="text-sm text-slate mb-1">Account Number: 3104295873</p>
+                  <p className="text-sm text-slate">Please include your name as reference</p>
+                </div>
+              )}
+              
               <Button type="submit" className="w-full md:w-auto">
-                Schedule Appointment
+                Schedule & Pay for Appointment
               </Button>
             </form>
           </CardContent>
