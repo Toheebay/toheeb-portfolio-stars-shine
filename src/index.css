@@ -75,7 +75,7 @@
 }
 
 .border-red {
-  @apply border-red;
+  border: 2px solid theme('colors.red');
 }
 
 .red-glow {
