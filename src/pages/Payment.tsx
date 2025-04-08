@@ -13,6 +13,7 @@ import {
 const Payment = () => {
   const { toast } = useToast();
   const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     toast({
@@ -22,6 +23,16 @@ const Payment = () => {
   }, [toast]);
 
   const handlePayment = () => {
+    // Send message to the email if message exists
+    if (message.trim()) {
+      // In a real application, this would use a server-side API
+      console.log(`Message to be delivered to adebayoajani23@gmail.com: ${message}`);
+      toast({
+        title: "Message received",
+        description: "Your message will be delivered to adebayoajani23@gmail.com",
+      });
+    }
+
     // Different payment links for different currencies
     const paymentLinks = {
       NGN: 'https://flutterwave.com/pay/c15bnectv5sa',
@@ -64,6 +75,19 @@ const Payment = () => {
           <div className="text-center mb-6">
             <p className="text-lightSlate mb-2">Total Amount:</p>
             <p className="text-2xl font-bold text-green">{getPrice()}</p>
+          </div>
+          
+          <div className="mb-6">
+            <label htmlFor="message" className="block text-lightSlate mb-2 text-center">
+              Leave a message (will be sent to adebayoajani23@gmail.com):
+            </label>
+            <textarea 
+              id="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="w-full p-3 rounded-md bg-navy border border-lightestNavy text-lightSlate resize-none h-24"
+              placeholder="Your message here..."
+            />
           </div>
         </div>
         

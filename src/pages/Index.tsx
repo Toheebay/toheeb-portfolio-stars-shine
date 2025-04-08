@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import EcommerceDashboard from "@/components/EcommerceDashboard";
 import AdsDashboard from "@/components/AdsDashboard";
+import FacebookAds from "@/components/FacebookAds";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
 import Store from "@/components/Store";
@@ -16,6 +17,7 @@ const Index = () => {
       <Hero />
       <Services />
       <EcommerceDashboard />
+      <FacebookAds />
       <AdsDashboard />
       <Store />
       <About />
