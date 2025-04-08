@@ -1,9 +1,35 @@
 
-import { Facebook } from 'lucide-react';
+import { Search, Facebook } from 'lucide-react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Input } from './ui/input';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import Star from './Star';
 
 const FacebookAds = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [accounts, setAccounts] = useState([
+    { id: 1, username: 'business_promo1', status: 'Active', budget: '$500', performance: 'Good' },
+    { id: 2, username: 'marketingexpert', status: 'Paused', budget: '$250', performance: 'Average' },
+    { id: 3, username: 'socialshop', status: 'Active', budget: '$750', performance: 'Excellent' },
+    { id: 4, username: 'digitaladvertiser', status: 'Pending', budget: '$350', performance: 'N/A' },
+  ]);
+
+  const filteredAccounts = accounts.filter(account => 
+    account.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const toggleStatus = (id: number) => {
+    setAccounts(accounts.map(account => {
+      if (account.id === id) {
+        const newStatus = account.status === 'Active' ? 'Paused' : 
+                          account.status === 'Paused' ? 'Active' : account.status;
+        return { ...account, status: newStatus };
+      }
+      return account;
+    }));
+  };
+
   return (
     <section id="facebook-ads" className="py-16 relative bg-white">
       <div className="container mx-auto px-4">
@@ -44,6 +70,70 @@ const FacebookAds = () => {
               <Star size={3} bottom="25%" right="15%" color="red" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </CardContent>
           </Card>
+        </div>
+
+        {/* New Facebook Account Management Section */}
+        <div className="bg-red/10 p-8 rounded-lg border border-red/20 relative overflow-hidden mb-12">
+          <h3 className="text-2xl font-bold mb-6 text-red">Facebook Account Management</h3>
+          
+          <div className="relative mb-6">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <Search className="w-5 h-5 text-gray-500" />
+            </div>
+            <Input
+              type="search"
+              className="pl-10 bg-white border-red/20 focus:border-red"
+              placeholder="Search Facebook username..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="bg-white rounded-lg overflow-hidden border border-red/20">
+            <Table>
+              <TableHeader className="bg-red/5">
+                <TableRow>
+                  <TableHead>Username</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Budget</TableHead>
+                  <TableHead>Performance</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredAccounts.length > 0 ? (
+                  filteredAccounts.map(account => (
+                    <TableRow key={account.id}>
+                      <TableCell className="font-medium">{account.username}</TableCell>
+                      <TableCell>
+                        <span className={`px-2 py-1 rounded-full text-xs ${
+                          account.status === 'Active' ? 'bg-green-100 text-green-800' : 
+                          account.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 
+                          'bg-gray-100 text-gray-800'
+                        }`}>
+                          {account.status}
+                        </span>
+                      </TableCell>
+                      <TableCell>{account.budget}</TableCell>
+                      <TableCell>{account.performance}</TableCell>
+                      <TableCell>
+                        <button 
+                          onClick={() => toggleStatus(account.id)} 
+                          className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
+                        >
+                          {account.status === 'Active' ? 'Pause' : account.status === 'Paused' ? 'Activate' : 'Manage'}
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} className="text-center py-4">No accounts found</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </div>
 
         <div className="bg-red/10 p-8 rounded-lg border border-red/20 relative overflow-hidden">
