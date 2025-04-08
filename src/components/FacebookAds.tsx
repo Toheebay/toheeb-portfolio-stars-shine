@@ -1,19 +1,51 @@
 
-import { Search, Facebook } from 'lucide-react';
+import { Search, Facebook, Lock } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import Star from './Star';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from './ui/form';
+import { useForm } from 'react-hook-form';
+import { toast } from './ui/use-toast';
 
 const FacebookAds = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   const [accounts, setAccounts] = useState([
     { id: 1, username: 'business_promo1', status: 'Active', budget: '$500', performance: 'Good' },
     { id: 2, username: 'marketingexpert', status: 'Paused', budget: '$250', performance: 'Average' },
     { id: 3, username: 'socialshop', status: 'Active', budget: '$750', performance: 'Excellent' },
     { id: 4, username: 'digitaladvertiser', status: 'Pending', budget: '$350', performance: 'N/A' },
   ]);
+
+  // Admin credentials
+  const adminUsername = "admin";
+  const adminPassword = "admin123";
+
+  // Login form
+  const loginForm = useForm({
+    defaultValues: {
+      username: '',
+      password: '',
+    }
+  });
+
+  const onLogin = (data: { username: string; password: string }) => {
+    if (data.username === adminUsername && data.password === adminPassword) {
+      setIsAdmin(true);
+      toast({
+        title: "Login successful",
+        description: "Welcome to the Facebook Ads management panel",
+      });
+    } else {
+      toast({
+        title: "Login failed",
+        description: "Incorrect username or password",
+        variant: "destructive",
+      });
+    }
+  };
 
   const filteredAccounts = accounts.filter(account => 
     account.username.toLowerCase().includes(searchTerm.toLowerCase())
@@ -72,68 +104,132 @@ const FacebookAds = () => {
           </Card>
         </div>
 
-        {/* New Facebook Account Management Section */}
+        {/* Facebook Account Management Section with Admin Authentication */}
         <div className="bg-red/10 p-8 rounded-lg border border-red/20 relative overflow-hidden mb-12">
           <h3 className="text-2xl font-bold mb-6 text-red">Facebook Account Management</h3>
           
-          <div className="relative mb-6">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <Search className="w-5 h-5 text-gray-500" />
+          {!isAdmin ? (
+            <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+              <div className="flex items-center justify-center mb-4">
+                <Lock className="h-8 w-8 text-red mr-2" />
+                <h4 className="text-xl font-bold text-red">Admin Login</h4>
+              </div>
+              <p className="text-sm text-navy text-center mb-6">
+                Please login with admin credentials to manage Facebook ad accounts
+              </p>
+              
+              <Form {...loginForm}>
+                <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+                  <FormField
+                    control={loginForm.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter admin username" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={loginForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="Enter admin password" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="flex justify-center">
+                    <button 
+                      type="submit" 
+                      className="bg-red hover:bg-red/80 text-white px-6 py-2 rounded-md transition-colors"
+                    >
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </Form>
             </div>
-            <Input
-              type="search"
-              className="pl-10 bg-white border-red/20 focus:border-red"
-              placeholder="Search Facebook username..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          ) : (
+            <>
+              <div className="relative mb-6">
+                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <Search className="w-5 h-5 text-gray-500" />
+                </div>
+                <Input
+                  type="search"
+                  className="pl-10 bg-white border-red/20 focus:border-red"
+                  placeholder="Search Facebook username..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
 
-          <div className="bg-white rounded-lg overflow-hidden border border-red/20">
-            <Table>
-              <TableHeader className="bg-red/5">
-                <TableRow>
-                  <TableHead>Username</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Budget</TableHead>
-                  <TableHead>Performance</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredAccounts.length > 0 ? (
-                  filteredAccounts.map(account => (
-                    <TableRow key={account.id}>
-                      <TableCell className="font-medium">{account.username}</TableCell>
-                      <TableCell>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          account.status === 'Active' ? 'bg-green-100 text-green-800' : 
-                          account.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                          {account.status}
-                        </span>
-                      </TableCell>
-                      <TableCell>{account.budget}</TableCell>
-                      <TableCell>{account.performance}</TableCell>
-                      <TableCell>
-                        <button 
-                          onClick={() => toggleStatus(account.id)} 
-                          className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
-                        >
-                          {account.status === 'Active' ? 'Pause' : account.status === 'Paused' ? 'Activate' : 'Manage'}
-                        </button>
-                      </TableCell>
+              <div className="bg-white rounded-lg overflow-hidden border border-red/20">
+                <Table>
+                  <TableHeader className="bg-red/5">
+                    <TableRow>
+                      <TableHead>Username</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Budget</TableHead>
+                      <TableHead>Performance</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={5} className="text-center py-4">No accounts found</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredAccounts.length > 0 ? (
+                      filteredAccounts.map(account => (
+                        <TableRow key={account.id}>
+                          <TableCell className="font-medium">{account.username}</TableCell>
+                          <TableCell>
+                            <span className={`px-2 py-1 rounded-full text-xs ${
+                              account.status === 'Active' ? 'bg-green-100 text-green-800' : 
+                              account.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {account.status}
+                            </span>
+                          </TableCell>
+                          <TableCell>{account.budget}</TableCell>
+                          <TableCell>{account.performance}</TableCell>
+                          <TableCell>
+                            <button 
+                              onClick={() => toggleStatus(account.id)} 
+                              className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
+                            >
+                              {account.status === 'Active' ? 'Pause' : account.status === 'Paused' ? 'Activate' : 'Manage'}
+                            </button>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={5} className="text-center py-4">No accounts found</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button 
+                  onClick={() => setIsAdmin(false)} 
+                  className="text-sm bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1 rounded-md"
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="bg-red/10 p-8 rounded-lg border border-red/20 relative overflow-hidden">
