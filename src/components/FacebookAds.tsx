@@ -1,5 +1,5 @@
 
-import { Search, Facebook, Lock } from 'lucide-react';
+import { Search, Facebook, Lock, Share2, Link } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
@@ -8,10 +8,17 @@ import Star from './Star';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from './ui/form';
 import { useForm } from 'react-hook-form';
 import { toast } from './ui/use-toast';
+import { Button } from './ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 const FacebookAds = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adLinkUrl, setAdLinkUrl] = useState('');
+  const [sharedLinks, setSharedLinks] = useState<{id: number, url: string, name: string, date: string}[]>([
+    { id: 1, url: 'https://facebook.com/ads/123456', name: 'Summer Campaign', date: '2025-04-05' },
+    { id: 2, url: 'https://facebook.com/ads/789012', name: 'Product Launch', date: '2025-04-08' },
+  ]);
   const [accounts, setAccounts] = useState([
     { id: 1, username: 'business_promo1', status: 'Active', budget: '$500', performance: 'Good' },
     { id: 2, username: 'marketingexpert', status: 'Paused', budget: '$250', performance: 'Average' },
@@ -20,8 +27,8 @@ const FacebookAds = () => {
   ]);
 
   // Admin credentials
-  const adminUsername = "admin";
-  const adminPassword = "admin123";
+  const adminUsername = "Adebayo";
+  const adminPassword = "Cyylinder1@";
 
   // Login form
   const loginForm = useForm({
@@ -60,6 +67,39 @@ const FacebookAds = () => {
       }
       return account;
     }));
+  };
+
+  const shareAdLink = () => {
+    if (adLinkUrl.trim() === '') {
+      toast({
+        title: "Error",
+        description: "Please enter a valid URL",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newLink = {
+      id: sharedLinks.length + 1,
+      url: adLinkUrl,
+      name: `Campaign ${sharedLinks.length + 1}`,
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    setSharedLinks([...sharedLinks, newLink]);
+    setAdLinkUrl('');
+    toast({
+      title: "Link shared",
+      description: "Ad link has been successfully shared",
+    });
+  };
+
+  const deleteLink = (id: number) => {
+    setSharedLinks(sharedLinks.filter(link => link.id !== id));
+    toast({
+      title: "Link deleted",
+      description: "Ad link has been removed",
+    });
   };
 
   return (
@@ -161,64 +201,138 @@ const FacebookAds = () => {
             </div>
           ) : (
             <>
-              <div className="relative mb-6">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                  <Search className="w-5 h-5 text-gray-500" />
-                </div>
-                <Input
-                  type="search"
-                  className="pl-10 bg-white border-red/20 focus:border-red"
-                  placeholder="Search Facebook username..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
+              <Tabs defaultValue="accounts" className="w-full">
+                <TabsList className="mb-6">
+                  <TabsTrigger value="accounts">Accounts</TabsTrigger>
+                  <TabsTrigger value="adlinks">Ad Links</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="accounts">
+                  <div className="relative mb-6">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <Search className="w-5 h-5 text-gray-500" />
+                    </div>
+                    <Input
+                      type="search"
+                      className="pl-10 bg-white border-red/20 focus:border-red"
+                      placeholder="Search Facebook username..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
 
-              <div className="bg-white rounded-lg overflow-hidden border border-red/20">
-                <Table>
-                  <TableHeader className="bg-red/5">
-                    <TableRow>
-                      <TableHead>Username</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Budget</TableHead>
-                      <TableHead>Performance</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredAccounts.length > 0 ? (
-                      filteredAccounts.map(account => (
-                        <TableRow key={account.id}>
-                          <TableCell className="font-medium">{account.username}</TableCell>
-                          <TableCell>
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              account.status === 'Active' ? 'bg-green-100 text-green-800' : 
-                              account.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 
-                              'bg-gray-100 text-gray-800'
-                            }`}>
-                              {account.status}
-                            </span>
-                          </TableCell>
-                          <TableCell>{account.budget}</TableCell>
-                          <TableCell>{account.performance}</TableCell>
-                          <TableCell>
-                            <button 
-                              onClick={() => toggleStatus(account.id)} 
-                              className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
-                            >
-                              {account.status === 'Active' ? 'Pause' : account.status === 'Paused' ? 'Activate' : 'Manage'}
-                            </button>
-                          </TableCell>
+                  <div className="bg-white rounded-lg overflow-hidden border border-red/20">
+                    <Table>
+                      <TableHeader className="bg-red/5">
+                        <TableRow>
+                          <TableHead>Username</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Budget</TableHead>
+                          <TableHead>Performance</TableHead>
+                          <TableHead>Actions</TableHead>
                         </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={5} className="text-center py-4">No accounts found</TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredAccounts.length > 0 ? (
+                          filteredAccounts.map(account => (
+                            <TableRow key={account.id}>
+                              <TableCell className="font-medium">{account.username}</TableCell>
+                              <TableCell>
+                                <span className={`px-2 py-1 rounded-full text-xs ${
+                                  account.status === 'Active' ? 'bg-green-100 text-green-800' : 
+                                  account.status === 'Paused' ? 'bg-yellow-100 text-yellow-800' : 
+                                  'bg-gray-100 text-gray-800'
+                                }`}>
+                                  {account.status}
+                                </span>
+                              </TableCell>
+                              <TableCell>{account.budget}</TableCell>
+                              <TableCell>{account.performance}</TableCell>
+                              <TableCell>
+                                <button 
+                                  onClick={() => toggleStatus(account.id)} 
+                                  className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
+                                >
+                                  {account.status === 'Active' ? 'Pause' : account.status === 'Paused' ? 'Activate' : 'Manage'}
+                                </button>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={5} className="text-center py-4">No accounts found</TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="adlinks">
+                  <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <h4 className="text-lg font-semibold mb-3 text-red">Share New Ad Link</h4>
+                    <div className="flex gap-2">
+                      <div className="flex-1">
+                        <Input 
+                          value={adLinkUrl} 
+                          onChange={(e) => setAdLinkUrl(e.target.value)} 
+                          placeholder="Enter Facebook ad link URL" 
+                          className="border-red/20 focus:border-red"
+                        />
+                      </div>
+                      <Button 
+                        onClick={shareAdLink} 
+                        className="bg-red hover:bg-red/80 text-white"
+                      >
+                        <Share2 className="mr-2 h-4 w-4" /> Share
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-lg overflow-hidden border border-red/20">
+                    <Table>
+                      <TableHeader className="bg-red/5">
+                        <TableRow>
+                          <TableHead>Campaign</TableHead>
+                          <TableHead>Link</TableHead>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {sharedLinks.length > 0 ? (
+                          sharedLinks.map(link => (
+                            <TableRow key={link.id}>
+                              <TableCell className="font-medium">{link.name}</TableCell>
+                              <TableCell>
+                                <div className="flex items-center">
+                                  <Link className="h-4 w-4 mr-1 text-red" />
+                                  <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-red hover:underline truncate max-w-[200px]">
+                                    {link.url}
+                                  </a>
+                                </div>
+                              </TableCell>
+                              <TableCell>{link.date}</TableCell>
+                              <TableCell>
+                                <button 
+                                  onClick={() => deleteLink(link.id)} 
+                                  className="text-xs bg-red hover:bg-red/80 text-white px-2 py-1 rounded"
+                                >
+                                  Delete
+                                </button>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={4} className="text-center py-4">No ad links shared yet</TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </TabsContent>
+              </Tabs>
 
               <div className="mt-6 flex justify-end">
                 <button 
