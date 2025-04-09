@@ -1,5 +1,5 @@
 
-import { Search, Facebook, Lock, Share2, Link } from 'lucide-react';
+import { Search, Facebook, Lock, Share2, Link, DollarSign, TrendingUp, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
@@ -110,6 +110,68 @@ const FacebookAds = () => {
           <p className="text-lg text-navy max-w-2xl mx-auto">
             Strategic Facebook ad campaigns designed to maximize your ROI and business growth
           </p>
+        </div>
+
+        {/* Facebook Monetization Model */}
+        <div className="mb-16 bg-red/10 rounded-lg p-8 border border-red/20">
+          <h3 className="text-2xl font-bold mb-6 text-red text-center">How Meta (Facebook) Advertising Works</h3>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="shadow-lg border-red/30">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <DollarSign className="h-6 w-6 text-red" />
+                  <CardTitle>Monetization Model</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-navy">
+                  Meta (Facebook) makes money by charging advertisers to show ads to users. It's a pay-per-click (PPC) or pay-per-impression (CPM) model.
+                </p>
+                
+                <div className="pl-4 border-l-2 border-red/30">
+                  <p className="font-medium">PPC (Pay Per Click):</p>
+                  <p className="text-sm text-navy mb-2">You pay when someone clicks your ad.</p>
+                  
+                  <p className="font-medium">CPM (Cost Per Mille):</p>
+                  <p className="text-sm text-navy">You pay per 1,000 impressions (views).</p>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="shadow-lg border-red/30">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <TrendingUp className="h-6 w-6 text-red" />
+                  <CardTitle>Advertising Goals</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <ArrowRight className="h-5 w-5 text-red mr-2 flex-shrink-0 mt-0.5" />
+                    <span>Get traffic to your website or store</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ArrowRight className="h-5 w-5 text-red mr-2 flex-shrink-0 mt-0.5" />
+                    <span>🛍️ Sell products/services directly</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ArrowRight className="h-5 w-5 text-red mr-2 flex-shrink-0 mt-0.5" />
+                    <span>📞 Generate leads (emails, calls, WhatsApp, etc.)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ArrowRight className="h-5 w-5 text-red mr-2 flex-shrink-0 mt-0.5" />
+                    <span>🧠 Create brand awareness or build a community</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ArrowRight className="h-5 w-5 text-red mr-2 flex-shrink-0 mt-0.5" />
+                    <span>📊 Retarget people who showed interest before</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
