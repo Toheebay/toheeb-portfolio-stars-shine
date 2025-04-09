@@ -8,7 +8,6 @@ import FacebookAds from "@/components/FacebookAds";
 import GoogleAds from "@/components/GoogleAds";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
-import Store from "@/components/Store";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -21,7 +20,6 @@ const Index = () => {
       <FacebookAds />
       <GoogleAds />
       <AdsDashboard />
-      <Store />
       <About />
       <BookingForm />
       <Footer />
